@@ -19,5 +19,20 @@ namespace TestAPI.Controllers
         {
             return await TestDb.invoicesContext.Kits.FirstOrDefaultAsync(c => c.KitId == id);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PostKitAsync(Kit kit)
+        {
+            if (ModelState.IsValid)
+            {
+                await TestDb.invoicesContext.Kits.AddAsync(kit);
+                await TestDb.invoicesContext.SaveChangesAsync();
+                return CreatedAtAction("Комплект добавлен", new { kit.KitId }, kit);
+            }
+            else
+            {
+                return new JsonResult("Ошибка при добавлении") { StatusCode = 500 };
+            }
+        }
     }
 }
