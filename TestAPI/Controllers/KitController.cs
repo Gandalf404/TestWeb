@@ -31,7 +31,7 @@ namespace TestAPI.Controllers
             }
             else
             {
-                return new JsonResult("Ошибка при добавлении") { StatusCode = 500 };
+                return new JsonResult("Ошибка при добавлении комплекта") { StatusCode = 500 };
             }
         }
     }
