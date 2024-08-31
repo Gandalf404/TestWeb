@@ -33,6 +33,7 @@ builder.Services.AddDbContext<InvoicesContext>(options =>
 });
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IKitRepository, KitRepository>();
+builder.Services.AddScoped<IPartRepository, PartRepository>();
 
 var app = builder.Build();
 

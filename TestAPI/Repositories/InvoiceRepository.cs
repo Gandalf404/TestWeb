@@ -13,9 +13,9 @@ public class InvoiceRepository(InvoicesContext invoicesContext) : IInvoiceReposi
         return await _invoicesContext.Invoices.Include(c => c.Kit).Include(c => c.Part).ToListAsync();
     }
 
-    public async Task<Invoice> GetInvoiceByIdAsync(int id)
+    public async Task<Invoice> GetInvoiceByIdAsync(int invoiceId)
     {
-        return await _invoicesContext.Invoices.FirstOrDefaultAsync(c => c.InvoiceId == id);
+        return await _invoicesContext.Invoices.FirstOrDefaultAsync(c => c.InvoiceId == invoiceId);
     }
 
     public async Task<bool> PostInvoiceAsync(Invoice invoice)

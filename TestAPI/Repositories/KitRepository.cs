@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using TestAPI.Interfaces;
 using TestAPI.Models;
@@ -14,9 +13,9 @@ public class KitRepository(InvoicesContext invoicesContext) : IKitRepository
         return await _invoicesContext.Kits.ToListAsync();
     }
 
-    public async Task<Kit> GetKitByIdAsync(int id)
+    public async Task<Kit> GetKitByIdAsync(int kitId)
     {
-        return await _invoicesContext.Kits.FirstOrDefaultAsync(c => c.KitId == id);
+        return await _invoicesContext.Kits.FirstOrDefaultAsync(c => c.KitId == kitId);
     }
 
     public async Task<bool> PostKitAsync(Kit kit)
