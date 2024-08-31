@@ -32,6 +32,7 @@ builder.Services.AddDbContext<InvoicesContext>(options =>
     options.UseNpgsql("Server=127.0.0.1;Database=invoices;Username=postgres;Password=mclooter131;");
 });
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IKitRepository, KitRepository>();
 
 var app = builder.Build();
 

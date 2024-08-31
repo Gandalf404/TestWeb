@@ -1,23 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using TestAPI.Interfaces;
 using TestAPI.Models;
 
 namespace TestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KitController : ControllerBase
+    public class KitController(IKitRepository kitRepository) : ControllerBase
     {
+        private readonly IKitRepository _kitRepository = kitRepository;
+
         [HttpGet]
         public async Task<List<Kit>> GetKitsAsync() 
         {
-            return await TestDb.invoicesContext.Kits.ToListAsync();
+            return await _kitRepository.GetKitsAsync();
         } 
         
         [HttpGet("{id}")]
         public async Task<Kit> GetKitByIdAsync(int id) 
         {
-            return await TestDb.invoicesContext.Kits.FirstOrDefaultAsync(c => c.KitId == id);
+            return await _kitRepository.GetKitByIdAsync(id);
         }
 
         [HttpPost]
@@ -25,13 +27,12 @@ namespace TestAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await TestDb.invoicesContext.Kits.AddAsync(kit);
-                await TestDb.invoicesContext.SaveChangesAsync();
-                return CreatedAtAction("Комплект добавлен", new { kit.KitId }, kit);
+                await _kitRepository.PostKitAsync(kit);
+                return Ok(kit);
             }
             else
             {
-                return new JsonResult("Ошибка при добавлении комплекта") { StatusCode = 500 };
+                return BadRequest("Ошибка при добавлении комплекта");
             }
         }
     }
