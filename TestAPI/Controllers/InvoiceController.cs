@@ -1,23 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using TestAPI.Interfaces;
 using TestAPI.Models;
 
 namespace TestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InvoiceController : ControllerBase
+    public class InvoiceController(IInvoiceRepository invoiceRepository) : ControllerBase
     {
+        private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
+
         [HttpGet]
         public async Task<List<Invoice>> GeInvoicesAsync() 
         {
-            return await TestDb.invoicesContext.Invoices.ToListAsync();
+            return await _invoiceRepository.GetInvoicesAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<Invoice> GetInvoiceByIdAsync(int id) 
         {
-            return await TestDb.invoicesContext.Invoices.FirstOrDefaultAsync(c => c.InvoiceId == id);
+            return await _invoiceRepository.GetInvoiceByIdAsync(id);
         }
 
         [HttpPost]
@@ -25,13 +27,12 @@ namespace TestAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await TestDb.invoicesContext.Invoices.AddAsync(invoice);
-                await TestDb.invoicesContext.SaveChangesAsync();
-                return CreatedAtAction("Заказ добавлен", new { invoice.InvoiceId }, invoice);
+                await _invoiceRepository.PostInvoiceAsync(invoice);
+                return Ok(invoice);
             }
             else 
             {
-                return new JsonResult("Ошибка при добавлении заказа") { StatusCode = 500 };
+                return BadRequest("Ошибка при добавлении заказа");
             }
         }
     }

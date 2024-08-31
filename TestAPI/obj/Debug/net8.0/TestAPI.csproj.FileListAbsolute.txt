@@ -104,3 +104,7 @@
 /home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /home/gandalf404/Documents/Test/TestAPI/obj/Debug/net8.0/TestAPI.sourcelink.json
+/home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/gandalf404/Documents/Test/TestAPI/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
