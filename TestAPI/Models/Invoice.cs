@@ -1,4 +1,6 @@
-﻿namespace TestAPI.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace TestAPI.Models;
 
 public partial class Invoice
 {
@@ -16,7 +18,9 @@ public partial class Invoice
 
     public int KitCount { get; set; }
 
+    [JsonIgnore]
     public virtual Kit Kit { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Part Part { get; set; } = null!;
 }

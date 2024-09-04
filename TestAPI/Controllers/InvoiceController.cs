@@ -11,15 +11,22 @@ namespace TestAPI.Controllers
         private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
 
         [HttpGet]
-        public async Task<List<Invoice>> GeInvoicesAsync() 
+        public async Task<IActionResult> GeInvoicesAsync() 
         {
-            return await _invoiceRepository.GetInvoicesAsync();
+            return Ok(await _invoiceRepository.GetInvoicesAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<Invoice> GetInvoiceByIdAsync(int id) 
+        public async Task<IActionResult> GetInvoiceByIdAsync(int id) 
         {
-            return await _invoiceRepository.GetInvoiceByIdAsync(id);
+            if (await _invoiceRepository.GetInvoiceByIdAsync(id) != null) 
+            {
+                return Ok(await _invoiceRepository.GetInvoiceByIdAsync(id));
+            }
+            else
+            {
+                return NotFound($"Заказ с идентификатором {id} не найден");
+            }
         }
 
         [HttpPost]

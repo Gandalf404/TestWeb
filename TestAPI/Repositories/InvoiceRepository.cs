@@ -20,6 +20,8 @@ public class InvoiceRepository(InvoicesContext invoicesContext) : IInvoiceReposi
 
     public async Task<bool> PostInvoiceAsync(Invoice invoice)
     {
+        invoice.Kit = _invoicesContext.Kits.FirstOrDefault(c => c.KitId == invoice.KitId);
+        invoice.Part = _invoicesContext.Parts.FirstOrDefault(c => c.PartId == invoice.PartId);
         await _invoicesContext.Invoices.AddAsync(invoice);
         await _invoicesContext.SaveChangesAsync();
         return true;

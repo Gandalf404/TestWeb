@@ -11,15 +11,22 @@ namespace TestAPI.Controllers
         private readonly IKitRepository _kitRepository = kitRepository;
 
         [HttpGet]
-        public async Task<List<Kit>> GetKitsAsync() 
+        public async Task<IActionResult> GetKitsAsync() 
         {
-            return await _kitRepository.GetKitsAsync();
+            return Ok(await _kitRepository.GetKitsAsync());
         } 
         
         [HttpGet("{id}")]
-        public async Task<Kit> GetKitByIdAsync(int id) 
+        public async Task<IActionResult> GetKitByIdAsync(int id) 
         {
-            return await _kitRepository.GetKitByIdAsync(id);
+            if (await _kitRepository.GetKitByIdAsync(id) != null)
+            {
+                return Ok(await _kitRepository.GetKitByIdAsync(id));
+            }
+            else
+            {
+                return NotFound($"Комплект с идентификатором {id} не найден");
+            }
         }
 
         [HttpPost]

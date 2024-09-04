@@ -13,10 +13,10 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
-});
+// builder.Services.AddControllers().AddJsonOptions(options =>
+// {
+//     options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+// });
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Type = "string",
         Format = "date",
-        Example = new OpenApiString("01.09.2024")
+        Example = new OpenApiString("2024-09-01")
     }));
 builder.Services.AddDbContext<InvoicesContext>(options => 
 {

@@ -6,7 +6,7 @@ namespace TestAPI.Converters;
 
 public class DateOnlyConverter : JsonConverter<DateOnly>
 {
-    private const string _format = "dd.MM.yyyy";
+    private const string _format = "yyyy-MM-dd";
 
     public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

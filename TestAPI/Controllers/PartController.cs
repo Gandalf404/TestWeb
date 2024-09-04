@@ -1,23 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using TestAPI.Interfaces;
 using TestAPI.Models;
 
 namespace TestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PartController : ControllerBase
+    public class PartController(IPartRepository partRepository) : ControllerBase
     {
+        private readonly IPartRepository _partRepository = partRepository;
+
         [HttpGet]
-        public async Task<List<Part>> GetPartsAsync() 
+        public async Task<IActionResult> GetPartsAsync() 
         {
-            return await TestDb.invoicesContext.Parts.ToListAsync();
+            return Ok(await _partRepository.GetPartsAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<Part> GetPartByIdAsync(int id) 
+        public async Task<IActionResult> GetPartByIdAsync(int id) 
         {
-            return await TestDb.invoicesContext.Parts.FirstOrDefaultAsync(c => c.PartId == id);
+            if (await _partRepository.GetPartByIdAsync(id) != null) 
+            {
+                return Ok(await _partRepository.GetPartByIdAsync(id));
+            }
+            else
+            {
+                return NotFound($"Запчасть с идентификатором {id} не найдена");
+            }
         }
 
         [HttpPost]
@@ -25,13 +34,12 @@ namespace TestAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await TestDb.invoicesContext.Parts.AddAsync(part);
-                await TestDb.invoicesContext.SaveChangesAsync();
-                return CreatedAtAction("Part added", new { part.PartId }, part);
+                await _partRepository.PostPartAsync(part);
+                return Ok(part);
             }
             else
             {
-                return new JsonResult("Model incorrect") { StatusCode = 500 };
+                return BadRequest("Ошибка при добавлении запчасти");
             }
         }
     }
