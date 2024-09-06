@@ -6,9 +6,9 @@ public partial class BuildPlace
 
     public int PartId { get; set; }
 
+    public Part Part { get; set; }
+
     public int KitId { get; set; }
 
-    public virtual Kit Kit { get; set; } = null!;
-
-    public virtual Part Part { get; set; } = null!;
+    public Kit Kit { get; set; }
 }

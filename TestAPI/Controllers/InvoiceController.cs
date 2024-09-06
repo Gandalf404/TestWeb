@@ -6,9 +6,11 @@ namespace TestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InvoiceController(IInvoiceRepository invoiceRepository) : ControllerBase
+    public class InvoiceController(IInvoiceRepository invoiceRepository, IKitRepository kitRepository, IPartRepository partRepository) : ControllerBase
     {
         private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
+        private readonly IKitRepository _kitRepository = kitRepository;
+        private readonly IPartRepository _partRepository = partRepository;
 
         [HttpGet]
         public async Task<IActionResult> GeInvoicesAsync() 
@@ -29,17 +31,25 @@ namespace TestAPI.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostInvoiceAsync(Invoice invoice)
+        [HttpPost("{kitId}, {partId}")]
+        public async Task<IActionResult> PostInvoiceAsync(int kitId, int partId, Invoice invoice)
         {
-            if (ModelState.IsValid)
+            //TODO Создать методы для проверки существования комплекта и запчасти
+            if (await _kitRepository.GetKitByIdAsync(kitId) != null && await _partRepository.GetPartByIdAsync(partId) != null)
             {
-                await _invoiceRepository.PostInvoiceAsync(invoice);
-                return Ok(invoice);
+                if (ModelState.IsValid)
+                {
+                    await _invoiceRepository.PostInvoiceAsync(invoice);
+                    return Ok(invoice);
+                }
+                else 
+                {
+                    return BadRequest("Ошибка при добавлении заказа");
+                }                   
             }
             else 
             {
-                return BadRequest("Ошибка при добавлении заказа");
+                return NotFound();
             }
         }
     }

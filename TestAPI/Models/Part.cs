@@ -12,9 +12,9 @@ public partial class Part
 
     public int KitId { get; set; }
 
-    public virtual ICollection<BuildPlace> BuildPlaces { get; set; } = new List<BuildPlace>();
+    public Kit Kit { get; set; }
 
-    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+    public List<BuildPlace> BuildPlaces { get; set; } = new List<BuildPlace>();
 
-    public virtual Kit Kit { get; set; } = null!;
+    public List<Invoice> Invoices { get; set; } = new List<Invoice>();
 }

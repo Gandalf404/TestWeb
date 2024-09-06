@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 using TestAPI.Converters;
 using TestAPI.Interfaces;
 using TestAPI.Models;
-using TestAPI.Repositories;
+// using TestAPI.Repositories;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);   
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => 
 {
@@ -29,11 +29,11 @@ builder.Services.AddSwaggerGen(options =>
     }));
 builder.Services.AddDbContext<InvoicesContext>(options => 
 {
-    options.UseNpgsql("Server=127.0.0.1;Database=invoices;Username=postgres;Password=mclooter131;");
+    options.UseNpgsql("Server=127.0.0.1;Database=migtest;Username=postgres;Password=mclooter131;");
 });
-builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-builder.Services.AddScoped<IKitRepository, KitRepository>();
-builder.Services.AddScoped<IPartRepository, PartRepository>();
+// builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+// builder.Services.AddScoped<IKitRepository, KitRepository>();
+// builder.Services.AddScoped<IPartRepository, PartRepository>();
 
 var app = builder.Build();
 

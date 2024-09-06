@@ -17,10 +17,4 @@ public partial class Invoice
     public int PartCount { get; set; }
 
     public int KitCount { get; set; }
-
-    [JsonIgnore]
-    public virtual Kit Kit { get; set; } = null!;
-
-    [JsonIgnore]
-    public virtual Part Part { get; set; } = null!;
 }

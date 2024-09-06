@@ -10,9 +10,9 @@ public partial class Kit
 
     public DateOnly KitFinishDate { get; set; }
 
-    public virtual ICollection<BuildPlace> BuildPlaces { get; set; } = new List<BuildPlace>();
+    public List<Part> Parts { get; set; } = new List<Part>();
 
-    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+    public List<BuildPlace> BuildPlaces { get; set; } = new List<BuildPlace>();
 
-    public virtual ICollection<Part> Parts { get; set; } = new List<Part>();
+    public List<Invoice> Invoices { get; set; } = new List<Invoice>();
 }
