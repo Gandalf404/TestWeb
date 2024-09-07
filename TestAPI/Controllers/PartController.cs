@@ -34,7 +34,7 @@ namespace TestAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _partRepository.PostPartAsync(part);
+                await _partRepository.CreatePartAsync(part);
                 return Ok(part);
             }
             else

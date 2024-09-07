@@ -29,23 +29,29 @@ namespace TestAPI.Controllers
             {
                 return NotFound($"Заказ с идентификатором {id} не найден");
             }
-        }
+        }   
 
-        [HttpPost("{kitId}, {partId}")]
-        public async Task<IActionResult> PostInvoiceAsync(int kitId, int partId, Invoice invoice)
+        [HttpPost]
+        public async Task<IActionResult> PostInvoiceAsync(Invoice invoice)
         {
-            //TODO Создать методы для проверки существования комплекта и запчасти
-            if (await _kitRepository.GetKitByIdAsync(kitId) != null && await _partRepository.GetPartByIdAsync(partId) != null)
+            if (await _kitRepository.IsKitExist(invoice.KitId))
             {
-                if (ModelState.IsValid)
+                if (await _partRepository.IsPartExist(invoice.PartId))
                 {
-                    await _invoiceRepository.PostInvoiceAsync(invoice);
-                    return Ok(invoice);
-                }
-                else 
+                    if (ModelState.IsValid)
+                    {
+                        await _invoiceRepository.CreateInvoiceAsync(invoice);
+                        return Ok(invoice);
+                    }
+                    else 
+                    {
+                        return BadRequest("Ошибка при добавлении заказа");
+                    }  
+                } 
+                else
                 {
-                    return BadRequest("Ошибка при добавлении заказа");
-                }                   
+                    return NotFound();
+                }                
             }
             else 
             {

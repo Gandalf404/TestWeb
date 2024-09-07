@@ -12,7 +12,7 @@ using TestAPI.Models;
 namespace TestAPI.Migrations
 {
     [DbContext(typeof(InvoicesContext))]
-    [Migration("20240906084243_init")]
+    [Migration("20240906131039_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -137,21 +137,17 @@ namespace TestAPI.Migrations
 
             modelBuilder.Entity("TestAPI.Models.BuildPlace", b =>
                 {
-                    b.HasOne("TestAPI.Models.Kit", "Kit")
+                    b.HasOne("TestAPI.Models.Kit", null)
                         .WithMany("BuildPlaces")
                         .HasForeignKey("KitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TestAPI.Models.Part", "Part")
+                    b.HasOne("TestAPI.Models.Part", null)
                         .WithMany("BuildPlaces")
                         .HasForeignKey("PartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Kit");
-
-                    b.Navigation("Part");
                 });
 
             modelBuilder.Entity("TestAPI.Models.Invoice", b =>
@@ -171,13 +167,11 @@ namespace TestAPI.Migrations
 
             modelBuilder.Entity("TestAPI.Models.Part", b =>
                 {
-                    b.HasOne("TestAPI.Models.Kit", "Kit")
+                    b.HasOne("TestAPI.Models.Kit", null)
                         .WithMany("Parts")
                         .HasForeignKey("KitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Kit");
                 });
 
             modelBuilder.Entity("TestAPI.Models.Kit", b =>

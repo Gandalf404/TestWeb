@@ -6,5 +6,7 @@ public interface IInvoiceRepository
 {
     public Task<List<Invoice>> GetInvoicesAsync();
     public Task<Invoice> GetInvoiceByIdAsync(int invoiceId);
-    public Task<bool> PostInvoiceAsync(Invoice invoice);
+    public Task<bool> CreateInvoiceAsync(Invoice invoice);
+    public Task<Invoice> UpdateInvoiceAsync(int invoiceId);
+    public Task<Invoice> DeleteInvoiceAsync(int invoiceId);
 }

@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace TestAPI.Models;
+﻿namespace TestAPI.Models;
 
 public partial class Invoice
 {

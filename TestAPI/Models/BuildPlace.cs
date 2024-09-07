@@ -6,9 +6,5 @@ public partial class BuildPlace
 
     public int PartId { get; set; }
 
-    public Part Part { get; set; }
-
     public int KitId { get; set; }
-
-    public Kit Kit { get; set; }
 }

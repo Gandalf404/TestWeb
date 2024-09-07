@@ -34,7 +34,7 @@ namespace TestAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _kitRepository.PostKitAsync(kit);
+                await _kitRepository.CreateKitAsync(kit);
                 return Ok(kit);
             }
             else
